@@ -1,0 +1,55 @@
+def scene_at(now)
+{
+
+  var t = Animations.animate(0.0, 1.0, seconds(3))[now]
+  var x = cos(degrees(360*t))
+  var y = sin(degrees(360*t))
+
+  var camera = Cameras.perspective( [ "eye": pos(-3*x, 5, 10 ),
+                                      "look_at": pos(0,0,0) ] )
+
+
+var plane_material = Materials.uniform( [ "ambient": Colors.black() ])
+var material = Materials.uniform( [ "ambient": Colors.red() ])
+
+var cube = decorate( material, cube())  
+var rectangleRECHTOP = decorate( material, box(1,3,0.5))  
+var rectangleLIGGEND = decorate( material, box(3,1,0.5))  
+
+var plus = union( [
+translate(vec(0,0,0), rectangleRECHTOP),
+translate(vec(0,0,0), rectangleLIGGEND) 
+] )
+
+var plus2 = union( [
+translate(vec(3.5,0,0), rectangleRECHTOP),
+translate(vec(3.5,0,0), rectangleLIGGEND) 
+] )
+
+var c = union( [
+translate(vec(-5,0,0), rectangleRECHTOP),
+translate(vec(-4,-1,0), rectangleLIGGEND),
+translate(vec(-4,2,0), rectangleLIGGEND) 
+] )
+var plane = translate(vec(0,0,-5),decorate(plane_material, xy_plane()))
+
+var root = union([c,plus,plus2,plane])
+  
+ //var root = union ([rectangleLIGGEND])
+
+
+var lights = [ Lights.omnidirectional( pos(2,2,5), Colors.white() ) ]
+
+var scene = create_scene(camera, root, lights)
+}
+var raytracer = Raytracers.latest()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(1)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

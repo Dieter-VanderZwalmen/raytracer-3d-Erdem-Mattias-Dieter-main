@@ -1,0 +1,41 @@
+def scene_at(now)
+{
+    var camera = Cameras.perspective( [ "eye": pos(0,0,5),
+                                        "look_at": pos(0,0,0) ] )
+                                        
+   	var material_red = Materials.uniform( [ "ambient": Colors.red() * 0.1,
+                                    	"diffuse": Colors.red() * 0.5,
+                                        "light_filtering": Colors.red()
+                                        ] )
+  	var material_blue = Materials.uniform( [ "ambient": Colors.blue() * 0.1,
+                                    	"diffuse": Colors.blue() * 0.5,
+                                        "light_filtering": Colors.blue()
+                                        ] )
+    var back_wall_material = Materials.uniform( [ 	"ambient": Colors.white() * 0.1,
+                                                	"diffuse": Colors.white() * 0.8 ] )
+	var primitives = []
+    var x = Animations.animate(0, 2.4, seconds(1.5))
+    primitives.push_back( translate(vec(2.5, 0, 0), decorate(material_red, sphere())) )
+    primitives.push_back( translate(vec(-2.5, 0, 0), decorate(material_blue, sphere())) )
+    primitives.push_back( translate(vec(0,0,-2), decorate(back_wall_material, xy_plane())) )
+	var root = union(primitives)
+    var lights = [Lights.omnidirectional( pos(-x[now],0,5), Colors.white() ),
+    				Lights.omnidirectional( pos(x[now],0,5), Colors.white() )
+    				]
+
+    create_scene(camera, root, lights)
+}
+
+var raytracer = Raytracers.v5()
+
+var renderer = Renderers.standard( [ "width": 500,
+                                     "height": 500,
+                                     "sampler": Samplers.single(),
+                                     "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(5)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.wif(),
+            Pipeline.base64(),
+            Pipeline.stdout() ] )

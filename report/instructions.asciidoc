@@ -1,0 +1,59 @@
+= Instructions
+
+== Report
+
+Fill in `report.json`.
+It should be mostly clear what data you should fill in.
+
+* All team members should be listed, regardless of when they intend to take the defense.
+* See `weights.json` to get a list of possible extensions.
+  You have to use the name listed there exactly, otherwise the accompanying script will not work.
+
+The `status` field might need a bit of clarification.
+Realize that the goal of this field is for me to know who will show up at a certain defense.
+If you feel the rules below would give me a wrong idea, you can tell me by email/Teams.
+
+[IMPORTANT]
+====
+Don't stress too much about this `status`: it is merely an aid for me and will not be the final determining factor in whether you have a defense or not.
+
+The actual planning (see Toledo) has final say in who is invited for a defense.
+If you are not on the planning and but you do want to take the defense, *then* you should definitely send me a message as soon as possible so that it can be fixed.
+====
+
+There are separate rules for each exam period (January/June/August).
+
+* January Exam Period
+** Fill in `Defense in January` if you intend to take a defense in January.
+   You will be scheduled in January.
+** Fill in `Defense in June/August` if you do not intend to show up in January (e.g., because you are not done with the project.)
+   You will NOT be scheduled in January.
+* June Exam Period
+** If you passed in January, just leave `Defense in January`.
+   You will NOT be scheduled in June.
+** Fill in `Defense in June` if you intend to take a defense in June.
+   You will be scheduled in June.
+** Fill in `Defense in August` if you intend to take a defense in August.
+   You will NOT be scheduled in June.
+* August Exam Period
+** If you passed in January, just leave `Defense in January`.
+   You will NOT be scheduled in August.
+** If you took the defense in June, fill in `Defense in June`.
+   You will NOT be scheduled in August.
+** Fill in `Defense in August` if you intend to take a defense in August.
+   You will be scheduled in August.
+
+== Checking
+
+Check the report by running the `check.py` script.
+
+[source,language='bash']
+----
+$ py check.py
+----
+
+[IMPORTANT]
+====
+This script is merely an aid.
+The http://3dcg.leone.ucll.be/first-steps/rules/explanations.html[official rules] are listed on the course's companion website and have final say.
+====

@@ -1,0 +1,38 @@
+def material(c)
+{
+  Materials.uniform( [ "ambient": Colors.white() * 0.1,
+                       "diffuse": c * 0.8 ] )
+}
+
+//global m = mesh("C:/Users/diete/Desktop/Semester7/3D computer graphics/triangle.mesh")
+//global m = mesh("C:/Users/diete/Desktop/Semester7/3D computer graphics/bunny.mesh")
+global m = mesh("C:/School/3D/raytracer-3d-Erdem-Mattias-Dieter/shaiScripts/mesh-reader/piramid.meshh")
+
+def scene_at(now)
+{
+  var t = Animations.animate(0.0, 5.0, seconds(10))[now]
+  var x = cos(degrees(360*t))
+  var y = sin(degrees(360*t))
+
+  var camera = Cameras.perspective( [ "eye": pos(3 * y, 0, 150),
+                                      "look_at": pos(0,0,0) ] )
+
+
+  var root = decorate( material(Colors.white()), m )
+
+  var lights = [ Lights.omnidirectional( pos(3 * y, 5, 3 * x), Colors.white() ) ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v2()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.single(),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(3)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

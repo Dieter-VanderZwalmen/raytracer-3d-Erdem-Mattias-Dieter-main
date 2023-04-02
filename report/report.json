@@ -1,0 +1,26 @@
+{
+    "url": "https://github.com/TODO",
+    "team-members": [
+        {
+            "id": "r1111111",
+            "firstName": "Dominique",
+            "lastName": "Peeters",
+            "status": "Defense in January",
+            "extensions": [
+                "Scripting",
+                "Triangle",
+                "Mesh Optimizer"
+            ]
+        },
+        {
+            "id": "r2222222",
+            "firstName": "Jo",
+            "lastName": "Janssens",
+            "status": "Not done yet",
+            "extensions": [
+                "Scripting",
+                "Mesh Optimizer"
+            ]
+        }
+    ]
+}

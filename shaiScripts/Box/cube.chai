@@ -1,0 +1,38 @@
+def material(c)
+{
+  Materials.uniform( [ "ambient": c ] )
+}
+
+def scene_at(now)
+{
+   var t = Animations.animate(0.0, 1.0, seconds(3))[now]
+  var x = cos(degrees(360*t))
+  var y = sin(degrees(360*t))
+
+  var camera = Cameras.perspective( [ "eye": pos(3 * y, 1*x*y, 3 * x),
+                                      "look_at": pos(0,0,0) ] )
+
+
+  var root = union( [ 	decorate( material(Colors.red()), cube() )
+  					
+					 	
+					 ] )
+
+					
+                     
+  var lights = [ ]
+
+  create_scene(camera, root, lights)
+}
+
+var raytracer   = Raytracers.v1()
+
+var renderer    = Renderers.standard( [ "width": 500,
+                                        "height": 500,
+                                        "sampler": Samplers.random(1),
+                                        "ray_tracer": raytracer ] )
+
+pipeline( scene_animation(scene_at, seconds(3)),
+          [ Pipeline.animation(30),
+            Pipeline.renderer(renderer),
+            Pipeline.studio() ] )

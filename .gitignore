@@ -1,0 +1,6 @@
+raytracer/raytracer/raytracer.vcxproj
+*.vcxproj
+*.vcxproj.*
+raytracer/raytracer/raytracer.vcxproj.filters
+raytracer/raytracer/raytracer.vcxproj
+.vs
